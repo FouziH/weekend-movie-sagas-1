@@ -2,6 +2,7 @@
 import React from 'react';
 
 /**** COMPONENTS ****/
+import MovieForm from '../../components/MovieForm/MovieForm';
 
 /**** STYLING ****/
 import { Box } from '@material-ui/core';
@@ -9,7 +10,7 @@ import { Box } from '@material-ui/core';
 const AddMovie = () => {
     return (
         <Box>
-            add-movie {}
+            <MovieForm />
         </Box>
     )
 }

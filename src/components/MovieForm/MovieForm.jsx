@@ -1,11 +1,13 @@
 /**** SYSTEM ****/
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 /**** COMPONENTS ****/
 
 /**** STYLING ****/
-import { Paper, TextField, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { Paper, TextField, Button, ButtonGroup, Select, MenuItem } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
@@ -18,21 +20,105 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MovieForm = () => {
+
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const classes = useStyles();
+
+    useEffect(() => {
+       dispatch({ type: 'FETCH_GENRES'})
+    }, [])
+    
+
+    // For initial State and clearing form if nessary.
+    let movieTemplate = {
+        title: '',
+        poster: '',
+        description: '',
+        genre: ''
+    }
+
+    // Local and Global State
+    const genres = useSelector(store => store.genres);
+    const [newMovie, setNewMovie] = useState(movieTemplate);
+
+
+    const handleChange = (event) => {
+        //Set local state object programicly....
+        setNewMovie({...newMovie, [event.target.name]:event.target.value});
+    }
+    
+    let addNewMovie = (event) => {
+        event.preventDefault();
+        dispatch({
+            type: "CREATE_MOVIE",
+            payload: newMovie
+        });
+        history.push('/');
+    }
+
     return (
         <Paper style={{ padding: 5}}>
             <form
+                className={classes.forms}
                 autoComplete="off" 
                 noValidate 
-                onSubmit={addNewPlant}
+                onSubmit={addNewMovie}
             >
                 <TextField 
-                    name="name" 
-                    label="Name" 
+                    name="title" 
+                    label="Title" 
                     variant="outlined" 
-                    value={newPlant.name} 
-                    onChange={handleNameChange} 
+                    value={newMovie.title} 
+                    onChange={handleChange} 
                 />
-                <Button></Button>
+                <TextField 
+                    name="poster" 
+                    label="Poster URL" 
+                    variant="outlined" 
+                    value={newMovie.poster} 
+                    onChange={handleChange} 
+                />
+                <TextField 
+                    name="description" 
+                    label="Description" 
+                    variant="outlined"
+                    multiline
+                    minRows ="10"
+                    value={newMovie.description} 
+                    onChange={handleChange} 
+                />
+                <Select // Need to review this later, depreciated error happening
+                    name="genre"
+                    onChange={handleChange}
+                    value={newMovie.genre}
+                    variant="outlined"
+                >
+                {genres.map((genre)=>(
+                    <MenuItem
+                        key={genre.id}
+                        value={genre.id}
+                    >
+                        {genre.name}
+                    </MenuItem>
+                ))}
+                </Select>
+                <ButtonGroup
+                    variant="contained"
+                >
+                    <Button 
+                        color="primary"
+                        onClick={() => history.push('/')}
+                    >
+                        Cancel
+                    </Button>
+                    <Button
+                        color="primary"
+                        type="submit"
+                    >
+                        Submit
+                    </Button>
+                </ButtonGroup>
             </form>
         </Paper>
     )
