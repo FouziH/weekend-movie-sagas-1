@@ -5,7 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 /**** COMPONENTS ****/
 
 /**** STYLING ****/
-import { Box, Grid, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Paper, Typography } from '@material-ui/core';
+
+
+const useStyles = makeStyles({
+    root: {
+        backgroundColor: 'red',
+    },
+});
 
 //{match:{params:{name}}} was vital/imporant/nessasary research
 // I wanted this kind of routing for bookmarks, and independant operation.
@@ -15,28 +23,58 @@ import { Box, Grid, Typography } from '@material-ui/core';
 
 const Details = ({match:{params:{id}}}) => {
 
+    const classes = useStyles();
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch({
             type: 'FETCH_SINGLE_MOVIE',
             payload: id
         })
-    }, [])
+    }, [id])
 
     const movie = useSelector(store => store.movie);
     console.log("movie",movie);
     return (
-        <div>
-            {movie.title}
-            {movie.description}
-            <img 
-                src={movie.poster} 
-                alt={movie.title}
-            />
-            {movie.genres?.map((genre, index) => (
-                <p key={index}>{genre}</p>
-            ))}
-        </div>
+        <Grid container spacing={2}>
+            <Grid item>
+                <Paper
+                    style={{
+                        padding: 20,
+                        textAlign: 'center'
+                    }}
+                >
+                    <img 
+                        src={movie.poster} 
+                        alt={movie.title}
+
+                    />
+                </Paper>
+            </Grid>
+            <Grid item>
+                <Paper
+                    style={{
+                        padding: 20,
+                        textAlign: 'center'
+                    }}
+                    elevation={12}
+                >
+                    <Typography
+                        component="h1"
+                    >
+                        {movie.title}
+                    </Typography>
+                    <Typography component="body1">
+                        {movie.description}
+                    </Typography>
+                    
+                    
+                    {movie.genres?.map((genre, index) => (
+                        <p key={index}>{genre}</p>
+                    ))}
+                </Paper>
+            </Grid>
+        </Grid>
+        
     )
 }
 

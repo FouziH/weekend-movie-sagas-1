@@ -20,7 +20,6 @@ function MovieList() {
 
     return (
         <Box>
-            <Typography variant="h1">MovieList</Typography>
            
             <Grid container className="movies" spacing={2}>
                 {movies.map(movie => (
