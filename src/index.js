@@ -16,6 +16,17 @@ function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
     yield takeEvery('FETCH_GENRES', fetchAllGenres);
     yield takeEvery('FETCH_SINGLE_MOVIE', fetchMovie); 
+    yield takeEvery('CREATE_MOVIE', createMovie)
+}
+
+function* createMovie(action){
+    try {
+        const response = yield axios.post(`/api/movie`, action.payload);
+        console.log('add movie', response);
+        yield put({ type: 'FETCH_MOVIES'});
+    } catch (error) {
+        console.log('createMovie on index.js', error);
+    }
 }
 
 function* fetchMovie(action) {
@@ -25,7 +36,7 @@ function* fetchMovie(action) {
         yield put({ type: 'SET_SINGLE_MOVIE', payload: movie.data});
         
     } catch (error) {
-        console.log('DANGER WILL ROBINSON', error);
+        console.log('fetchMovie on index.js', error);
     }
 }
 
@@ -82,6 +93,8 @@ const genres = (state = [], action) => {
 const movie = ( state = {}, action ) => {
     switch (action.type) {
         case 'SET_SINGLE_MOVIE':
+            console.log('acc',action.payload);
+            
             return action.payload[0]; // Only need the first and only row
         default:
             return state;

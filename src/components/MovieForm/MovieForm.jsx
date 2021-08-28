@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 
 /**** STYLING ****/
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, TextField, Button, ButtonGroup, Select, MenuItem } from '@material-ui/core';
+import { Paper, TextField, Button, ButtonGroup, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
@@ -35,7 +35,7 @@ const MovieForm = () => {
         title: '',
         poster: '',
         description: '',
-        genre: ''
+        genre_id: ''
     }
 
     // Local and Global State
@@ -66,6 +66,7 @@ const MovieForm = () => {
                 onSubmit={addNewMovie}
             >
                 <TextField 
+                    required
                     name="title" 
                     label="Title" 
                     variant="outlined" 
@@ -73,6 +74,7 @@ const MovieForm = () => {
                     onChange={handleChange} 
                 />
                 <TextField 
+                    required
                     name="poster" 
                     label="Poster URL" 
                     variant="outlined" 
@@ -80,6 +82,7 @@ const MovieForm = () => {
                     onChange={handleChange} 
                 />
                 <TextField 
+                    required
                     name="description" 
                     label="Description" 
                     variant="outlined"
@@ -88,21 +91,27 @@ const MovieForm = () => {
                     value={newMovie.description} 
                     onChange={handleChange} 
                 />
-                <Select // Need to review this later, depreciated error happening
-                    name="genre"
-                    onChange={handleChange}
-                    value={newMovie.genre}
+                <FormControl
+                    required
                     variant="outlined"
                 >
-                {genres.map((genre)=>(
-                    <MenuItem
-                        key={genre.id}
-                        value={genre.id}
+                    <InputLabel>Genre</InputLabel>
+                    <Select
+                        name="genre_id"
+                        onChange={handleChange}
+                        value={newMovie.genre_id}
+                        label="Genre"
                     >
-                        {genre.name}
-                    </MenuItem>
-                ))}
-                </Select>
+                    {genres.map((genre)=>(
+                        <MenuItem
+                            key={genre.id}
+                            value={genre.id}
+                        >
+                            {genre.name}
+                        </MenuItem>
+                    ))}
+                    </Select>
+                </FormControl>
                 <ButtonGroup
                     variant="contained"
                 >

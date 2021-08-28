@@ -16,7 +16,6 @@ import { Box, Grid, Typography } from '@material-ui/core';
 const Details = ({match:{params:{id}}}) => {
 
     const dispatch = useDispatch();
-
     useEffect(() => {
         dispatch({
             type: 'FETCH_SINGLE_MOVIE',
@@ -25,7 +24,7 @@ const Details = ({match:{params:{id}}}) => {
     }, [])
 
     const movie = useSelector(store => store.movie);
-    console.log('shit',movie.genres);
+    console.log("movie",movie);
     return (
         <div>
             {movie.title}
@@ -34,8 +33,8 @@ const Details = ({match:{params:{id}}}) => {
                 src={movie.poster} 
                 alt={movie.title}
             />
-            {movie.genres.map((genre) => (
-                <p>{genre}</p>
+            {movie.genres?.map((genre, index) => (
+                <p key={index}>{genre}</p>
             ))}
         </div>
     )
