@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/App/App.js';
+import App from './App/App.jsx';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 // Provider allows us to use redux within our react app
 import { Provider } from 'react-redux';
@@ -14,6 +14,30 @@ import axios from 'axios';
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
+    yield takeEvery('FETCH_GENRES', fetchAllGenres);
+    yield takeEvery('FETCH_SINGLE_MOVIE', fetchMovie); 
+    yield takeEvery('CREATE_MOVIE', createMovie)
+}
+
+function* createMovie(action){
+    try {
+        const response = yield axios.post(`/api/movie`, action.payload);
+        console.log('add movie', response);
+        yield put({ type: 'FETCH_MOVIES'});
+    } catch (error) {
+        console.log('createMovie on index.js', error);
+    }
+}
+
+function* fetchMovie(action) {
+    try {
+        const movie = yield axios.get(`/api/movie/${action.payload}`)
+        console.log('get single movie', movie.data);
+        yield put({ type: 'SET_SINGLE_MOVIE', payload: movie.data});
+        
+    } catch (error) {
+        console.log('fetchMovie on index.js', error);
+    }
 }
 
 function* fetchAllMovies() {
@@ -22,6 +46,19 @@ function* fetchAllMovies() {
         const movies = yield axios.get('/api/movie');
         console.log('get all:', movies.data);
         yield put({ type: 'SET_MOVIES', payload: movies.data });
+
+    } catch {
+        console.log('get all error');
+    }
+        
+}
+
+function* fetchAllGenres() {
+    // get all genres from the DB
+    try {
+        const genres = yield axios.get('/api/genre');
+        console.log('get all:', genres.data);
+        yield put({ type: 'SET_GENRES', payload: genres.data });
 
     } catch {
         console.log('get all error');
@@ -52,11 +89,24 @@ const genres = (state = [], action) => {
     }
 }
 
+// Used to store single movie as an object
+const movie = ( state = {}, action ) => {
+    switch (action.type) {
+        case 'SET_SINGLE_MOVIE':
+            console.log('acc',action.payload);
+            
+            return action.payload[0]; // Only need the first and only row
+        default:
+            return state;
+    }
+}
+
 // Create one store that all components can use
 const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
+        movie,
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
