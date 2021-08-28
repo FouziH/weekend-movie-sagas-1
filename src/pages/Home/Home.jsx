@@ -1,4 +1,10 @@
+/**** SYSTEM ****/
 import React from 'react';
+
+/**** COMPONENTS ****/
+
+/**** STYLING ****/
+
 import MovieList from '../../components/MovieList/MovieList'
 const Home = () => {
     return (

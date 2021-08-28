@@ -64,11 +64,11 @@ const genres = (state = [], action) => {
     }
 }
 
-// Used to store single movie
-const movie = ( state = [], action ) => {
+// Used to store single movie as an object
+const movie = ( state = {}, action ) => {
     switch (action.type) {
         case 'SET_SINGLE_MOVIE':
-            return action.payload;
+            return action.payload[0]; // Only need the first and only row
         default:
             return state;
     }
