@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/App/App.js';
+import App from './App/App.jsx';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 // Provider allows us to use redux within our react app
 import { Provider } from 'react-redux';
@@ -14,6 +14,18 @@ import axios from 'axios';
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
+    yield takeEvery('FETCH_SINGLE_MOVIE', fetchMovie); 
+}
+
+function* fetchMovie(action) {
+    try {
+        const movie = yield axios.get(`/api/movie/${action.payload}`)
+        console.log('get single movie', movie.data);
+        yield put({ type: 'SET_SINGLE_MOVIE', payload: movie.data});
+        
+    } catch (error) {
+        console.log('DANGER WILL ROBINSON', error);
+    }
 }
 
 function* fetchAllMovies() {
@@ -52,11 +64,22 @@ const genres = (state = [], action) => {
     }
 }
 
+// Used to store single movie
+const movie = ( state = [], action ) => {
+    switch (action.type) {
+        case 'SET_SINGLE_MOVIE':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 // Create one store that all components can use
 const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
+        movie,
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
