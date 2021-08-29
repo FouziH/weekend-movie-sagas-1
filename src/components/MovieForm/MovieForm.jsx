@@ -26,7 +26,11 @@ const MovieForm = () => {
     const classes = useStyles();
 
     useEffect(() => {
-       dispatch({ type: 'FETCH_GENRES'})
+       dispatch({ type: 'FETCH_GENRES'});
+       dispatch({
+        type: 'SET_PAGE',
+        payload: 'add-movie'
+        })
     }, [])
     
 
@@ -58,7 +62,7 @@ const MovieForm = () => {
     }
 
     const handleCancel = () => {
-        if (confirm("Are you sure")){
+        if (confirm("All entered information will be lost.")){
             history.push('/');
         }
     }

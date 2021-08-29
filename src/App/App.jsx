@@ -89,15 +89,7 @@ function App() {
         )
 
       default:
-        return (
-          <Fab 
-              component={Link}
-              to='/'
-              size="medium"
-          >
-            <HomeIcon />
-          </Fab>
-        )
+        return 
     }
     
   }
@@ -108,7 +100,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Router>
-          <AppBar position="static" className={classes.bar}>
+          <AppBar position="sticky" className={classes.bar}>
             <Toolbar>
               <Typography variant="h6" className={classes.title}>
                 The Movie Saga

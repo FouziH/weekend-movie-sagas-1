@@ -52,6 +52,9 @@ const Details = () => {
                         alt={movie.title}
 
                     />
+                    {movie.genres?.map((genre, index) => (
+                        <Typography key={index} variant="subtitle2">{genre}</Typography>
+                    ))}
                 </Paper>
             </Grid>
             <Grid item xs={12} sm={6} md={8}>
@@ -71,9 +74,7 @@ const Details = () => {
                     >
                         {movie.description}
                     </Typography>
-                    {movie.genres?.map((genre, index) => (
-                        <Typography key={index} variant="subtitle2">{genre}</Typography>
-                    ))}
+                    
                 </Paper>
             </Grid>
         </Grid>
