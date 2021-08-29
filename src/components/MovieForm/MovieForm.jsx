@@ -3,12 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-/**** COMPONENTS ****/
-
 /**** STYLING ****/
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Paper, TextField, Button, ButtonGroup, Select, MenuItem, FormControl, InputLabel, Typography } from '@material-ui/core';
 
+// All elements within the form dominate the space!
 const useStyles = makeStyles((theme) => ({
     forms:{
         '& > *': {
@@ -75,7 +74,7 @@ const MovieForm = () => {
             elevation={12}
             style={{ padding: 5}}
         >    
-            <form
+            <form 
                 className={classes.forms}
                 autoComplete="off" 
                 noValidate 
@@ -151,6 +150,7 @@ const MovieForm = () => {
             </form>
         </Paper>
     )// End MovieForm return
+
 }// End MovieForm()
 
 export default MovieForm;
