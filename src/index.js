@@ -16,7 +16,17 @@ function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
     yield takeEvery('FETCH_GENRES', fetchAllGenres);
     yield takeEvery('FETCH_SINGLE_MOVIE', fetchMovie); 
-    yield takeEvery('CREATE_MOVIE', createMovie)
+    yield takeEvery('CREATE_MOVIE', createMovie);
+    yield takeEvery('FETCH_FEATURED', fetchAllFeatured)
+}
+
+function* fetchAllFeatured(){
+    try {
+        const featured = yield axios.get('/api/movie/featured');
+        yield put({ type: 'SET_FEATURED', payload: featured.data  })
+    } catch (error) {
+        console.log('FETCH_FEATURED', error);  
+    }
 }
 
 function* createMovie(action){
@@ -112,9 +122,19 @@ const page = ( state = '', action ) => {
     }
 }
 
+const featured = ( state = [], action ) => {
+    switch (action.type) {
+        case 'SET_FEATURED':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 // Create one store that all components can use
 const storeInstance = createStore(
     combineReducers({
+        featured,
         page,
         movies,
         genres,

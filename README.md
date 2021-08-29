@@ -1,9 +1,32 @@
-# Project Name
+# The Movie Saga
 
-[Project Instructions](./INSTRUCTIONS.md), this line may be removed once you have updated the README.md
+#### Note:
+Database has been modified from original, see database.sql
 
 ## Description
 
-Your project description goes here. What problem did you solve? How did you solve it?
+A database of movies with a many-to-many relationship to genres. Project is divided into pages and components within the src folder.
 
-Additional README details can be found [here](https://github.com/PrimeAcademy/readme-template/blob/master/README.md).
+#### Features
+
+ - Bookmark a movie details page.
+ - Dynamic button controls (Fab).
+ - Sticky App Bar.
+ - Feature hidden on smaller screens.
+ - Add new movies.
+
+#### Technologies Used
+
+ - React
+ - Redux
+ - Sagas
+ - Material UI
+
+#### Todos
+
+ - Incorperate Random Feature
+ - Delete Button / Sql - Saga done
+ - Image upload and server storage
+ - Selection of multiple genres at one time.
+ - Edit capabilities.
+

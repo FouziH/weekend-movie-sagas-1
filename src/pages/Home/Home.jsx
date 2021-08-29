@@ -1,6 +1,6 @@
 /**** SYSTEM ****/
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 /**** COMPONENTS ****/
 import MovieList from '../../components/MovieList/MovieList'
@@ -11,9 +11,11 @@ import { Hidden } from '@material-ui/core';
 const Home = () => {
 
     const dispatch = useDispatch();
+    const [edit, setEdit] = useState(true)
+    const featured = useSelector(store => store.featured);
 
     useEffect(() => {
-
+        
         // Set current page "No place like home.."
         dispatch({
             type: 'SET_PAGE',
@@ -22,15 +24,14 @@ const Home = () => {
 
     }, [])
 
+    console.log(featured);
+
     return (
         <div>
             <Hidden smDown> {/* smaller screens do not need feature */}
-                <MovieDetails id={4} title={'Featured Movie'}/>
+                <MovieDetails id={5} title={'Featured Movie'}/>
                 <br />
             </Hidden>
-                
-                
-            
             <MovieList />
         </div>
     ) // End Home return
