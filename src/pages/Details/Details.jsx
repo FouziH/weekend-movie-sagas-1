@@ -6,9 +6,6 @@ import { useParams } from 'react-router';
 /**** COMPONENTS ****/
 import MovieDetails from '../../components/MovieDetails/MovieDetails';
 
-
-
-
 const Details = () => {
 
     
@@ -24,7 +21,6 @@ const Details = () => {
 
     }, [])
 
-    
     return (
         <MovieDetails id={id}/>
     ) // End Details return

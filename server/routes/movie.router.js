@@ -16,6 +16,20 @@ router.get('/', (req, res) => {
 
 });
 
+router.get('/featured', (req, res) => {
+
+  const query = `SELECT id FROM movies WHERE featured = true`;
+  pool.query(query)
+    .then( result => {
+      res.send(result.rows);
+    })
+    .catch(err => {
+      console.log('ERROR: Get all movies', err);
+      res.sendStatus(500)
+    })
+    
+});
+
 router.get('/:id', (req, res) => {
   
   const statement = `SELECT 

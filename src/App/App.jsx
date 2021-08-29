@@ -88,7 +88,7 @@ function App() {
           </Fab>
         )
       default:
-        return 
+        break;
     }
   } // End menuOptions()
 
