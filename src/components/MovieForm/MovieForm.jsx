@@ -24,13 +24,10 @@ const MovieForm = () => {
     const classes = useStyles();
 
     useEffect(() => {
+
         // For form select options
         dispatch({ type: 'FETCH_GENRES'});
-        // For bar menu option ( in this case none - may be subject to change )
-        dispatch({
-            type: 'SET_PAGE',
-            payload: 'add-movie'
-        })
+
     }, [])
     
 
@@ -48,25 +45,32 @@ const MovieForm = () => {
 
     // Manage form data local state
     const handleChange = (event) => {
+
         //Set local state object programmatically....
         setNewMovie({...newMovie, [event.target.name]:event.target.value});
+
     } // End handleChange()
     
     // Send payload/movie out to be added
     let addNewMovie = (event) => {
+
         event.preventDefault();
+
         dispatch({
             type: "CREATE_MOVIE",
             payload: newMovie
         });
         history.push('/');
+
     } // End addNewMovie()
 
     // Make sure the user fully intends on leaving form.
     const handleCancel = () => {
+
         if (confirm("All entered information will be lost.")){
             history.push('/'); // I wonder how annoying a nested confirm would be...
         }
+
     } // End handleCancel()
 
     return (
