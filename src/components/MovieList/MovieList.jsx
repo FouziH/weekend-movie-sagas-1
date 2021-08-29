@@ -6,8 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import MovieListItem from '../MovieListItem/MovieListItem';
 
 /**** STYLING ****/
-import { Box, Grid, Typography } from '@material-ui/core';
-import './MovieList.css'
+import { Box, Grid } from '@material-ui/core';
 
 function MovieList() {
 
@@ -20,7 +19,6 @@ function MovieList() {
 
     return (
         <Box>
-           
             <Grid container className="movies" spacing={2}>
                 {movies.map(movie => (
                     <MovieListItem key={movie.id} movie={movie}/>
@@ -28,7 +26,8 @@ function MovieList() {
             </Grid>
         </Box>
 
-    );
-}
+    ); // End MovieList return 
+    
+} // End MovieList()
 
 export default MovieList;

@@ -8,12 +8,7 @@ import Home from '../pages/Home/Home';
 import AddMovie from '../pages/AddMovie/AddMovie';
 import Details from '../pages/Details/Details';
 
-/**** COMPONENTS ****/
-import Header from '../components/Header/Header';
-import Footer from '../components/Footer/Footer';
-import Nav from '../components/Nav/Nav';
-
-/**** STYLING ****/
+/**** STYLING Elements ****/
 import { CssBaseline } from '@material-ui/core';
 import { makeStyles, createTheme, ThemeProvider } from '@material-ui/core/styles';
 import { 
@@ -21,15 +16,17 @@ import {
   AppBar, 
   Toolbar,
   Typography,
-  IconButton,
   Fab
 } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import AddIcon from '@material-ui/icons/Add';
+
+/**** STYLING Colors ****/
 import red from '@material-ui/core/colors/red';
 import green from '@material-ui/core/colors/green';
 import grey from '@material-ui/core/colors/grey';
 
+/**** APP Theme ****/
 const theme = createTheme({
   palette: {
     primary: {
@@ -61,8 +58,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 function App() {
+
+  // Pulling redux state of current page may find another solution in future.
+  // Potential useLocation() didn't have enough time to really research.
   const page = useSelector(store => store.page);
 
+  // Depending on page state, desplay buttons, quick fix to history.push same location
   const menuOptions = (page) => {
     switch (page) {
       case 'home':
@@ -76,46 +77,33 @@ function App() {
             <AddIcon />
           </Fab>
         )
-    
       case 'details':
         return (
           <Fab 
-              component={Link}
-              to='/'
-              size="medium"
+            component={Link}
+            to='/'
+            size="medium"
           >
             <HomeIcon />
           </Fab>
         )
-
       default:
-        return (
-          <Fab 
-              component={Link}
-              to='/'
-              size="medium"
-          >
-            <HomeIcon />
-          </Fab>
-        )
+        return 
     }
-    
-  }
+  } // End menuOptions()
 
   const classes = useStyles();
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md"> {/* maxWidth to prevent Jellyfish effect */}
       <ThemeProvider theme={theme}>
-        <CssBaseline />
+        <CssBaseline /> {/* Want to learn more about */}
         <Router>
-          <AppBar position="static" className={classes.bar}>
+          <AppBar position="sticky" className={classes.bar}> {/* Keep on top */}
             <Toolbar>
               <Typography variant="h6" className={classes.title}>
                 The Movie Saga
               </Typography>
-              {menuOptions(page)}
-              
-              
+              {menuOptions(page)}{/* Dynamic menu options */}
             </Toolbar>
           </AppBar>
           <Route path="/" component={Home} exact />
@@ -124,8 +112,7 @@ function App() {
         </Router>
       </ThemeProvider>
     </Container>
-  );
-}
-
+  );// End App return
+} // End App()
 
 export default App;
