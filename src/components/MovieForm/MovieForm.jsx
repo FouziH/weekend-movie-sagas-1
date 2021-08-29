@@ -8,7 +8,6 @@ import { useHistory } from 'react-router-dom';
 /**** STYLING ****/
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Paper, TextField, Button, ButtonGroup, Select, MenuItem, FormControl, InputLabel, Typography } from '@material-ui/core';
-import { Delete } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
     forms:{
@@ -26,10 +25,12 @@ const MovieForm = () => {
     const classes = useStyles();
 
     useEffect(() => {
-       dispatch({ type: 'FETCH_GENRES'});
-       dispatch({
-        type: 'SET_PAGE',
-        payload: 'add-movie'
+        // For form select options
+        dispatch({ type: 'FETCH_GENRES'});
+        // For bar menu option ( in this case none - may be subject to change )
+        dispatch({
+            type: 'SET_PAGE',
+            payload: 'add-movie'
         })
     }, [])
     
@@ -46,12 +47,13 @@ const MovieForm = () => {
     const genres = useSelector(store => store.genres);
     const [newMovie, setNewMovie] = useState(movieTemplate);
 
-
+    // Manage form data local state
     const handleChange = (event) => {
-        //Set local state object programicly....
+        //Set local state object programmatically....
         setNewMovie({...newMovie, [event.target.name]:event.target.value});
-    }
+    } // End handleChange()
     
+    // Send payload/movie out to be added
     let addNewMovie = (event) => {
         event.preventDefault();
         dispatch({
@@ -59,19 +61,20 @@ const MovieForm = () => {
             payload: newMovie
         });
         history.push('/');
-    }
+    } // End addNewMovie()
 
+    // Make sure the user fully intends on leaving form.
     const handleCancel = () => {
         if (confirm("All entered information will be lost.")){
-            history.push('/');
+            history.push('/'); // I wonder how annoying a nested confirm would be...
         }
-    }
+    } // End handleCancel()
 
     return (
         <Paper 
             elevation={12}
-            style={{ padding: 5}}>
-            
+            style={{ padding: 5}}
+        >    
             <form
                 className={classes.forms}
                 autoComplete="off" 
@@ -147,7 +150,7 @@ const MovieForm = () => {
                 </Box>
             </form>
         </Paper>
-    )
-}
+    )// End MovieForm return
+}// End MovieForm()
 
 export default MovieForm;

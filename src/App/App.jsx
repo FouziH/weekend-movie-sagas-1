@@ -112,7 +112,7 @@ function App() {
         </Router>
       </ThemeProvider>
     </Container>
-  );
-} // End App return
+  );// End App return
+} // End App()
 
 export default App;
