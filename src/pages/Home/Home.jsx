@@ -11,7 +11,6 @@ import { Hidden } from '@material-ui/core';
 const Home = () => {
 
     const dispatch = useDispatch();
-    const [edit, setEdit] = useState(true)
     const featured = useSelector(store => store.featured);
 
     useEffect(() => {
