@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 
 /**** STYLING ****/
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, TextField, Button, ButtonGroup, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
+import { Box, Paper, TextField, Button, ButtonGroup, Select, MenuItem, FormControl, InputLabel, Typography } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
@@ -57,14 +57,24 @@ const MovieForm = () => {
         history.push('/');
     }
 
+    const handleCancel = () => {
+        if (confirm("Are you sure")){
+            history.push('/');
+        }
+    }
+
     return (
-        <Paper style={{ padding: 5}}>
+        <Paper 
+            elevation={12}
+            style={{ padding: 5}}>
+            
             <form
                 className={classes.forms}
                 autoComplete="off" 
                 noValidate 
                 onSubmit={addNewMovie}
             >
+                <Typography variant="h5">Add Movie</Typography>
                 <TextField 
                     required
                     name="title" 
@@ -112,22 +122,25 @@ const MovieForm = () => {
                     ))}
                     </Select>
                 </FormControl>
-                <ButtonGroup
-                    variant="contained"
-                >
-                    <Button 
-                        color="primary"
-                        onClick={() => history.push('/')}
+                <Box display="flex" flexDirection="row-reverse">
+                    <ButtonGroup
+                        style={{width: "auto"}}
+                        variant="contained"
                     >
-                        Cancel
-                    </Button>
-                    <Button
-                        color="primary"
-                        type="submit"
-                    >
-                        Submit
-                    </Button>
-                </ButtonGroup>
+                        <Button 
+                            color="secondary"
+                            onClick={() => handleCancel()}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            color="primary"
+                            type="submit"
+                        >
+                            Submit
+                        </Button>
+                    </ButtonGroup>
+                </Box>
             </form>
         </Paper>
     )

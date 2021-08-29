@@ -101,9 +101,21 @@ const movie = ( state = {}, action ) => {
     }
 }
 
+// Used for conditional rendering, router.useLocation was not acting as hoped,
+// global state was plan B to save time.
+const page = ( state = '', action ) => {
+    switch (action.type) {
+        case 'SET_PAGE':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 // Create one store that all components can use
 const storeInstance = createStore(
     combineReducers({
+        page,
         movies,
         genres,
         movie,
