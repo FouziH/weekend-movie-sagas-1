@@ -1,5 +1,5 @@
 /**** SYSTEM ****/
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 /**** COMPONENTS ****/
@@ -13,10 +13,13 @@ const AddMovie = () => {
     const dispatch = useDispatch();
     
     // For bar menu option ( in this case none - may be subject to change )
-    dispatch({
-        type: 'SET_PAGE',
-        payload: 'add-movie'
-    })
+    
+    useEffect(() => {
+        dispatch({
+            type: 'SET_PAGE',
+            payload: 'add-movie'
+        })
+    }, [])
 
     return (
         <Box>

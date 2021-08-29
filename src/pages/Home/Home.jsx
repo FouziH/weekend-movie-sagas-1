@@ -1,5 +1,5 @@
 /**** SYSTEM ****/
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 /**** COMPONENTS ****/
@@ -11,7 +11,8 @@ import { Hidden } from '@material-ui/core';
 const Home = () => {
 
     const dispatch = useDispatch();
-    const featured = useSelector(store => store.featured)
+    const [edit, setEdit] = useState(true)
+    const featured = useSelector(store => store.featured);
 
     useEffect(() => {
         
@@ -20,17 +21,15 @@ const Home = () => {
             type: 'SET_PAGE',
             payload: 'home'
         })
-        dispatch({ type: 'FETCH_FEATURED'});
+
     }, [])
 
-    const getRandomFeatured = (featured) => {
-        return featured[Math.floor(Math.random() * featured.length)].id
-    }
+    console.log(featured);
 
     return (
         <div>
             <Hidden smDown> {/* smaller screens do not need feature */}
-                <MovieDetails id={getRandomFeatured(featured)} title={'Featured Movie'}/>
+                <MovieDetails id={5} title={'Featured Movie'}/>
                 <br />
             </Hidden>
             <MovieList />
