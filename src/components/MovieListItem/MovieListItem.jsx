@@ -12,7 +12,9 @@ const MovieListItem = ({ movie }) => {
     const history = useHistory();
 
     const handleDelete = (id) => {
-        dispatch({ type: 'DELETE_MOVIE', payload: id});
+        if (confirm("Deleting movie")){
+            dispatch({ type: 'DELETE_MOVIE', payload: id});
+        }
     }
 
     return (
