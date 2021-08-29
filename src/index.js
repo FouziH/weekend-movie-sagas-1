@@ -17,7 +17,18 @@ function* rootSaga() {
     yield takeEvery('FETCH_GENRES', fetchAllGenres);
     yield takeEvery('FETCH_SINGLE_MOVIE', fetchMovie); 
     yield takeEvery('CREATE_MOVIE', createMovie);
-    yield takeEvery('FETCH_FEATURED', fetchAllFeatured)
+    yield takeEvery('FETCH_FEATURED', fetchAllFeatured);
+    yield takeEvery('DELETE_MOVIE', deleteMovie)
+}
+
+function* deleteMovie(action){
+    try {
+        const response = yield axios.delete(`/api/movie/${action.payload}`);
+        console.log('delete movie', response);
+        yield put({ type: 'FETCH_MOVIES'});
+    } catch (error) {
+        console.log('deleteMovie on index.js', error);
+    }
 }
 
 function* fetchAllFeatured(){

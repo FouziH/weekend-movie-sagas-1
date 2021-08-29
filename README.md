@@ -14,6 +14,7 @@ A database of movies with a many-to-many relationship to genres. Project is divi
  - Sticky App Bar.
  - Feature hidden on smaller screens.
  - Add new movies.
+ - Delete movies.
 
 #### Technologies Used
 
@@ -25,7 +26,7 @@ A database of movies with a many-to-many relationship to genres. Project is divi
 #### Todos
 
  - Incorperate Random Feature
- - Delete Button / Sql - Saga done
+ - Delete Button needs to move to a more approprate location
  - Image upload and server storage
  - Selection of multiple genres at one time.
  - Edit capabilities.
