@@ -4,7 +4,10 @@ import { useDispatch } from 'react-redux';
 
 /**** COMPONENTS ****/
 import MovieList from '../../components/MovieList/MovieList'
+import MovieDetails from '../../components/MovieDetails/MovieDetails';
 
+/**Syling */
+import { Hidden } from '@material-ui/core';
 const Home = () => {
 
     const dispatch = useDispatch();
@@ -21,6 +24,13 @@ const Home = () => {
 
     return (
         <div>
+            <Hidden smDown> {/* smaller screens do not need feature */}
+                <MovieDetails id={4} title={'Featured Movie'}/>
+                <br />
+            </Hidden>
+                
+                
+            
             <MovieList />
         </div>
     ) // End Home return
