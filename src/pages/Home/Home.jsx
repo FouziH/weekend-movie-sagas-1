@@ -25,7 +25,7 @@ const Home = () => {
     return (
         <div>
             <Hidden smDown> {/* smaller screens do not need feature */}
-                <MovieDetails id={randomId} title={'Featured Movie'}/>
+                <MovieDetails id={4} title={'Featured Movie'}/>
                 <br />
             </Hidden>
             <MovieList />
