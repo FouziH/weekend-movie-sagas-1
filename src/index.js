@@ -36,7 +36,7 @@ function* fetchAllFeatured(){
         const featured = yield axios.get('/api/movie/featured');
         yield put({ type: 'SET_FEATURED', payload: featured.data  })
     } catch (error) {
-        console.log('FETCH_FEATURED', error);  
+        console.log('SET_FEATURED', error);  
     }
 }
 
@@ -114,8 +114,6 @@ const genres = (state = [], action) => {
 const movie = ( state = {}, action ) => {
     switch (action.type) {
         case 'SET_SINGLE_MOVIE':
-            console.log('acc',action.payload);
-            
             return action.payload[0]; // Only need the first and only row
         default:
             return state;

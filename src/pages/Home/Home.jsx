@@ -1,6 +1,6 @@
 /**** SYSTEM ****/
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect} from 'react';
+import { useDispatch } from 'react-redux';
 
 /**** COMPONENTS ****/
 import MovieList from '../../components/MovieList/MovieList'
@@ -11,7 +11,6 @@ import { Hidden } from '@material-ui/core';
 const Home = () => {
 
     const dispatch = useDispatch();
-    const featured = useSelector(store => store.featured);
 
     useEffect(() => {
         
@@ -23,12 +22,10 @@ const Home = () => {
 
     }, [])
 
-    console.log(featured);
-
     return (
         <div>
             <Hidden smDown> {/* smaller screens do not need feature */}
-                <MovieDetails id={5} title={'Featured Movie'}/>
+                <MovieDetails id={randomId} title={'Featured Movie'}/>
                 <br />
             </Hidden>
             <MovieList />
